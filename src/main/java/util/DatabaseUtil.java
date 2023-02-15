@@ -42,7 +42,7 @@ public class DatabaseUtil {
     @TestOnly
     public static void main(String[] args){
         // test Query
-        testQuery(con);
+        testQuery(getConnection());
     }
 
 
