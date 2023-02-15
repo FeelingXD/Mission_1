@@ -13,8 +13,8 @@ public class OpenApi {
     static String KEY="4362434564776c6135327572784859"; //privated key.
     static String TYPE="json";
 
-    static String START="23000";
-    static String END="23999";
+    static String START="1";
+    static String END="1000";
 
     public static String getResponse(){
         try {

@@ -112,6 +112,8 @@ public class LocationHistoryDAO {
             System.out.println();
         }
     }
+
+    @TestOnly
     public static void main(String[] args){
         testSelect();
     }
