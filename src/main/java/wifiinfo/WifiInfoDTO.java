@@ -6,38 +6,37 @@ import lombok.Data;
 public class WifiInfoDTO {
 
 
-    private String MGRNo ;
-    private String WIFI_NAME;
-    private  String REGION;
-    private  String ADDRESS;
-    private  String DETAIL_ADDRESS;
-    private  String INSTALL_LOC;
-    private  String INSTALL_INSTITUTION;
-    private  String SERVICE;
-    private  String NETWORK_TYPE;
-    private String INSTALL_YEAR;
-    private   String IN_OUT;
-    private  String WIFI_ENV;
+    private String X_SWIFI_MGR_NO ;
+    private String X_SWIFI_MAIN_NM;
+    private  String X_SWIFI_WRDOFC;
+    private  String X_SWIFI_ADRES1;
+    private  String X_SWIFI_ADRES2;
+    private  String X_SWIFI_INSTL_MBY;
+    private  String X_SWIFI_INSTL_TY;
+    private  String X_SWIFI_SVC_SE;
+    private  String X_SWIFI_CMCWR;
+    private String X_SWIFI_CNSTC_YEAR;
+    private   String X_SWIFI_INOUT_DOOR;
+    private  String X_SWIFI_REMARS3;
     private  String LNT;
     private  String LAT;
-    private  String OPERATION_DATE ;
+    private  String WORK_DTTM ;
 
-    public WifiInfoDTO(String MGRNo, String WIFI_NAME, String REGION, String ADDRESS, String DETAIL_ADDRESS, String INSTALL_LOC, String INSTALL_INSTITUTION, String SERVICE, String NETWORK_TYPE, String INSTALL_YEAR, String IN_OUT, String WIFI_ENV, String LNT, String LAT, String OPERATION_DATE) {
-        this.MGRNo = MGRNo;
-        this.WIFI_NAME = WIFI_NAME;
-        this.REGION = REGION;
-        this.ADDRESS = ADDRESS;
-        this.DETAIL_ADDRESS = DETAIL_ADDRESS;
-        this.INSTALL_LOC = INSTALL_LOC;
-        this.INSTALL_INSTITUTION = INSTALL_INSTITUTION;
-        this.SERVICE = SERVICE;
-        this.NETWORK_TYPE = NETWORK_TYPE;
-        this.INSTALL_YEAR = INSTALL_YEAR;
-        this.IN_OUT = IN_OUT;
-        this.WIFI_ENV = WIFI_ENV;
+    public WifiInfoDTO(String x_SWIFI_MGR_NO, String x_SWIFI_MAIN_NM, String x_SWIFI_WRDOFC, String x_SWIFI_ADRES1, String x_SWIFI_ADRES2, String x_SWIFI_INSTL_MBY, String x_SWIFI_INSTL_TY, String x_SWIFI_SVC_SE, String x_SWIFI_CMCWR, String x_SWIFI_CNSTC_YEAR, String x_SWIFI_INOUT_DOOR, String x_SWIFI_REMARS3, String LNT, String LAT, String WORK_DTTM) {
+        X_SWIFI_MGR_NO = x_SWIFI_MGR_NO;
+        X_SWIFI_MAIN_NM = x_SWIFI_MAIN_NM;
+        X_SWIFI_WRDOFC = x_SWIFI_WRDOFC;
+        X_SWIFI_ADRES1 = x_SWIFI_ADRES1;
+        X_SWIFI_ADRES2 = x_SWIFI_ADRES2;
+        X_SWIFI_INSTL_MBY = x_SWIFI_INSTL_MBY;
+        X_SWIFI_INSTL_TY = x_SWIFI_INSTL_TY;
+        X_SWIFI_SVC_SE = x_SWIFI_SVC_SE;
+        X_SWIFI_CMCWR = x_SWIFI_CMCWR;
+        X_SWIFI_CNSTC_YEAR = x_SWIFI_CNSTC_YEAR;
+        X_SWIFI_INOUT_DOOR = x_SWIFI_INOUT_DOOR;
+        X_SWIFI_REMARS3 = x_SWIFI_REMARS3;
         this.LNT = LNT;
         this.LAT = LAT;
-        this.OPERATION_DATE = OPERATION_DATE;
+        this.WORK_DTTM = WORK_DTTM;
     }
-
 }
