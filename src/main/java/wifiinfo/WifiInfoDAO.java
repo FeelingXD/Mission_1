@@ -1,6 +1,7 @@
 package wifiinfo;
 
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import org.jetbrains.annotations.TestOnly;
@@ -12,10 +13,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class WifiInfoDAO {
     private static String TABLE= "wifi_info";
 
+    private static String Columns="X_SWIFI_MGR_NO,X_SWIFI_WRDOFC,X_SWIFI_MAIN_NM,X_SWIFI_ADRES1,X_SWIFI_ADRES2,X_SWIFI_INSTL_FLOOR,X_SWIFI_INSTL_MBY,X_SWIFI_INSTL_TY,X_SWIFI_SVC_SE,X_SWIFI_CMCWR,X_SWIFI_CNSTC_YEAR,X_SWIFI_INOUT_DOOR,X_SWIFI_REMARS3,LNT,LAT,WORK_DTTM";
     public static int TABLECOUNT=getTableCount();
     private static int getTableCount(){
         String sql = "select count(*) from "+TABLE; // 현재 테이블 데이터 검사
@@ -59,34 +63,44 @@ public class WifiInfoDAO {
     public void getDataFromApi(){
         //Todo api util 에서 1000개씩 데이터 가져와서 db에 반영하기
         int start=TABLECOUNT+1;
-        int limit = OpenApiUtil.getTotalAmount();
+        int limit = OpenApiUtil.TOTALAMOUNT;
         OpenApiUtil oau= new OpenApiUtil();
+        while(start<limit){
+            insert(oau.getRows(start));
+            start=Math.min(start+999,limit);
+        }
+
 
     }
 
     public int insert(JsonArray ja){
-        String sql="INSERT INTO "+TABLE +"values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+        String sql="INSERT INTO "+TABLE +"("+ Columns +") "+"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         Connection con=null;
         PreparedStatement pstmt=null;
-        ResultSet rs=null;
-
+        Gson gson = new Gson();
         try {
             con=DatabaseUtil.getConnection();
-
+            pstmt=con.prepareStatement(sql);
             for (JsonElement e : ja) {
-//                pstmt.setString(,e.getAsJsonObject().get("").getAsString());
+                int index=1;
+                Map<String,String> map = new LinkedHashMap<>();
+                map = (Map<String, String>) gson.fromJson(e,map.getClass()); // gson to hashmap
+
+                for(Map.Entry<String,String> entrySet:map.entrySet()){
+                    pstmt.setString(index++,entrySet.getValue());
+                }
+                pstmt.addBatch();
             }
-
-
-
+            pstmt.executeBatch();
+            pstmt.clearBatch();
+            return 1;
         }catch (Exception e){
             e.printStackTrace();
         }finally {
-
+            System.out.println("성공적으로 저장했습니다.");
+            if (pstmt != null) try {pstmt.close();pstmt = null;} catch(SQLException ex){ex.printStackTrace();}
+            if (con != null) try {con.close();con = null;} catch(SQLException ex){ex.printStackTrace();}
         }
-
-
         return -1;
     }
 
@@ -107,6 +121,7 @@ public class WifiInfoDAO {
                  String X_SWIFI_WRDOFC=rs.getString("X_SWIFI_WRDOFC");
                  String X_SWIFI_ADRES1=rs.getString("X_SWIFI_ADRES1");
                  String X_SWIFI_ADRES2=rs.getString("X_SWIFI_ADRES2");
+                 String x_SWIFI_INSTL_FLOOR=rs.getString("X_SWIFI_INSTL_FLOOR");
                  String X_SWIFI_INSTL_MBY=rs.getString("X_SWIFI_INSTL_MBY");
                  String X_SWIFI_INSTL_TY=rs.getString("X_SWIFI_INSTL_TY");
                  String X_SWIFI_SVC_SE=rs.getString("X_SWIFI_SVC_SE");
@@ -117,7 +132,7 @@ public class WifiInfoDAO {
                  String LNT=rs.getString("LNT");
                  String LAT=rs.getString("LAT");
                  String WORK_DTTM =rs.getString("WORK_DTTM");
-                 list.add(new WifiInfoDTO( X_SWIFI_MGR_NO,  X_SWIFI_MAIN_NM, X_SWIFI_WRDOFC,  X_SWIFI_ADRES1,  X_SWIFI_ADRES2,  X_SWIFI_INSTL_MBY,  X_SWIFI_INSTL_TY,  X_SWIFI_SVC_SE,  X_SWIFI_CMCWR,  X_SWIFI_CNSTC_YEAR,  X_SWIFI_INOUT_DOOR,  X_SWIFI_REMARS3, LNT, LAT, WORK_DTTM));
+                 list.add(new WifiInfoDTO( X_SWIFI_MGR_NO,  X_SWIFI_MAIN_NM, X_SWIFI_WRDOFC,  X_SWIFI_ADRES1,  X_SWIFI_ADRES2,x_SWIFI_INSTL_FLOOR,  X_SWIFI_INSTL_MBY,  X_SWIFI_INSTL_TY,  X_SWIFI_SVC_SE,  X_SWIFI_CMCWR,  X_SWIFI_CNSTC_YEAR,  X_SWIFI_INOUT_DOOR,  X_SWIFI_REMARS3, LNT, LAT, WORK_DTTM));
                  return list;
             }
 
@@ -165,8 +180,8 @@ public class WifiInfoDAO {
 
     @TestOnly
     public static void main(String[] args){
-        System.out.println(getTableCount());
-        testPrint(returnAllData());
+        WifiInfoDAO dao = new WifiInfoDAO();
+        dao.getDataFromApi();
     }
 
 }
