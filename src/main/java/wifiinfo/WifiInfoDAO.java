@@ -54,26 +54,67 @@ public class WifiInfoDAO {
         return -1; //error
     }
 
-    private void initTable(){
-
-
-
+    public ArrayList<WifiInfoDTO> getWifiInfo(String lat,String lnt){
+        return getWifiInfo(lat,lnt,20);
     }
+    public ArrayList<WifiInfoDTO> getWifiInfo(String lat, String lnt ,int limit){
+        //lat lat lnt
+        ArrayList<WifiInfoDTO> list=new ArrayList<>();
+        String distance="6371 * 2 * ASIN(POWER(POWER(SIN((?- lat) * pi()/180 / 2), 2) + COS(? * pi()/180) * COS(lat * pi()/180) * POWER(SIN((? - lnt) * pi()/180 / 2), 2), 0.5)) AS distance";
+        String sql="select "+distance+", "+Columns+" from "+TABLE+
+                "\n" +
+                "group by X_SWIFI_MAIN_NM\n" +
+                "order by distance\n" +
+                "limit 20";
+        Connection con= null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
+        try{
+            con=DatabaseUtil.getConnection();
+            pstmt=con.prepareStatement(sql);
 
-    public void getDataFromApi(){
-        //Todo api util 에서 1000개씩 데이터 가져와서 db에 반영하기
-        int start=TABLECOUNT+1;
-        int limit = OpenApiUtil.TOTALAMOUNT;
-        OpenApiUtil oau= new OpenApiUtil();
-        while(start<limit){
-            insert(oau.getRows(start));
-            start=Math.min(start+999,limit);
+            pstmt.setString(1,lat);
+            pstmt.setString(2,lat);
+            pstmt.setString(3,lnt);
+
+            rs=pstmt.executeQuery();
+
+            while(rs.next()){
+                String X_distance= rs.getString("distance");
+                String X_SWIFI_MGR_NO =rs.getString("X_SWIFI_MGR_NO");
+                String X_SWIFI_MAIN_NM=rs.getString("X_SWIFI_MAIN_NM");
+                String X_SWIFI_WRDOFC=rs.getString("X_SWIFI_WRDOFC");
+                String X_SWIFI_ADRES1=rs.getString("X_SWIFI_ADRES1");
+                String X_SWIFI_ADRES2=rs.getString("X_SWIFI_ADRES2");
+                String x_SWIFI_INSTL_FLOOR=rs.getString("X_SWIFI_INSTL_FLOOR");
+                String X_SWIFI_INSTL_MBY=rs.getString("X_SWIFI_INSTL_MBY");
+                String X_SWIFI_INSTL_TY=rs.getString("X_SWIFI_INSTL_TY");
+                String X_SWIFI_SVC_SE=rs.getString("X_SWIFI_SVC_SE");
+                String X_SWIFI_CMCWR=rs.getString("X_SWIFI_CMCWR");
+                String X_SWIFI_CNSTC_YEAR=rs.getString("X_SWIFI_CNSTC_YEAR");
+                String X_SWIFI_INOUT_DOOR=rs.getString("X_SWIFI_INOUT_DOOR");
+                String X_SWIFI_REMARS3=rs.getString("X_SWIFI_REMARS3");
+                String LNT=rs.getString("LNT");
+                String LAT=rs.getString("LAT");
+                String WORK_DTTM =rs.getString("WORK_DTTM");
+                list.add(new WifiInfoDTO(X_distance,X_SWIFI_MGR_NO,X_SWIFI_MAIN_NM,X_SWIFI_WRDOFC,X_SWIFI_ADRES1,X_SWIFI_ADRES2,x_SWIFI_INSTL_FLOOR,X_SWIFI_INSTL_MBY,
+                        X_SWIFI_INSTL_TY,X_SWIFI_SVC_SE,X_SWIFI_CMCWR,X_SWIFI_CNSTC_YEAR,X_SWIFI_INOUT_DOOR,X_SWIFI_REMARS3 ,LNT,LAT,WORK_DTTM));
+            }
+            return list;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if (pstmt != null) try {pstmt.close();pstmt = null;} catch(SQLException ex){ex.printStackTrace();}
+            if (con != null) try {con.close();con = null;} catch(SQLException ex){ex.printStackTrace();}
+            if (rs!= null) try {rs.close(); rs = null;} catch(SQLException ex){ex.printStackTrace();}
         }
 
-
+        return null; // error db
     }
 
-    public int insert(JsonArray ja){
+
+
+    public int insert(JsonArray ja){ //new data from api
         String sql="INSERT INTO "+TABLE +"("+ Columns +") "+"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         Connection con=null;
         PreparedStatement pstmt=null;
@@ -97,11 +138,22 @@ public class WifiInfoDAO {
         }catch (Exception e){
             e.printStackTrace();
         }finally {
-            System.out.println("성공적으로 저장했습니다.");
+
             if (pstmt != null) try {pstmt.close();pstmt = null;} catch(SQLException ex){ex.printStackTrace();}
             if (con != null) try {con.close();con = null;} catch(SQLException ex){ex.printStackTrace();}
         }
         return -1;
+    }
+    public void getDataFromApi(){
+        //Todo api util 에서 1000개씩 데이터 가져와서 db에 반영하기
+        int start=TABLECOUNT+1;
+        int limit = OpenApiUtil.TOTALAMOUNT;
+        OpenApiUtil oau= new OpenApiUtil();
+        while(start<limit){
+            insert(oau.getRows(start));
+            start=Math.min(start+999,limit);
+        }
+        System.out.println("테이블 데이터수 :"+getTableCount());
     }
 
     @TestOnly
@@ -133,8 +185,9 @@ public class WifiInfoDAO {
                  String LAT=rs.getString("LAT");
                  String WORK_DTTM =rs.getString("WORK_DTTM");
                  list.add(new WifiInfoDTO( X_SWIFI_MGR_NO,  X_SWIFI_MAIN_NM, X_SWIFI_WRDOFC,  X_SWIFI_ADRES1,  X_SWIFI_ADRES2,x_SWIFI_INSTL_FLOOR,  X_SWIFI_INSTL_MBY,  X_SWIFI_INSTL_TY,  X_SWIFI_SVC_SE,  X_SWIFI_CMCWR,  X_SWIFI_CNSTC_YEAR,  X_SWIFI_INOUT_DOOR,  X_SWIFI_REMARS3, LNT, LAT, WORK_DTTM));
-                 return list;
+
             }
+            return list;
 
         }catch (Exception e){
             e.printStackTrace();
@@ -181,7 +234,13 @@ public class WifiInfoDAO {
     @TestOnly
     public static void main(String[] args){
         WifiInfoDAO dao = new WifiInfoDAO();
-        dao.getDataFromApi();
+        ArrayList<WifiInfoDTO> list=dao.getWifiInfo("34.8061696","126.48448");
+        for (WifiInfoDTO dto: list) {
+
+            System.out.print(dto.getX_SWIFI_MAIN_NM()+"  ");
+            System.out.println(dto.getDistance());
+
+        }
     }
 
 }
