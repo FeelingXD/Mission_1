@@ -1,17 +1,13 @@
 package util;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.jetbrains.annotations.TestOnly;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class OpenApiUtil {
     static String ORIGIN ="http://openapi.seoul.go.kr:8088";
@@ -19,6 +15,7 @@ public class OpenApiUtil {
     static String KEY="4362434564776c6135327572784859"; //privated key.
     static String TYPE="json";
 
+    public static int TOTALAMOUNT=getTotalAmount();
     public static int getTotalAmount(){ // API 최신값 검사하기
         try {
             OkHttpClient client = new OkHttpClient();
@@ -42,8 +39,8 @@ public class OpenApiUtil {
        return -1;
     }
 
-    public static JsonArray getRows(int start,int limit){
-        int end=Math.min(start+999,limit);
+    public JsonArray getRows(int start){
+        int end=Math.min(start+999,TOTALAMOUNT);
 
         try {
             OkHttpClient client = new OkHttpClient();
@@ -67,9 +64,8 @@ public class OpenApiUtil {
 
 
 
-
     @TestOnly
     public static void main(String[] args){
-        System.out.println(getRows(1001,1111));
+        System.out.println(getTotalAmount());
     }
 }
