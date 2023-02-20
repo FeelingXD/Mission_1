@@ -1,16 +1,19 @@
-<%--
+<%@ page import="wifiinfo.WifiInfoDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="wifiinfo.WifiInfoDTO" %><%--
   Created by IntelliJ IDEA.
   User: wlals
   Date: 2023-02-17
   Time: 오후 12:54
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page pageEncoding="UTF-8"%>
 <html>
 <head>
     <style>
         @import url("css/common.css");
     </style>
+
 </head>
 <body>
 <table>
@@ -35,12 +38,37 @@
             <th>작업일자</th>
         </tr>
     </thead>
-    <tr>
-        <td>ss</td>
-    </tr>
-    <tr>
-        <td>aa</td>
-    </tr>
+    <%
+        String lat=request.getParameter("LAT");
+        String lnt=request.getParameter("LNT");
+
+        if(lat!=null && lnt!=null){ //피라미터 값이 있을때
+        WifiInfoDAO dao=new WifiInfoDAO();
+        ArrayList<WifiInfoDTO> list= new ArrayList<>();
+        list=dao.getWifiInfo(lat,lnt);
+        for (WifiInfoDTO dto : list) {
+            out.println("<tr>");
+            out.println("<td>"+dto.getDistance() +"</td>");
+            out.println("<td>"+dto.getX_SWIFI_MGR_NO() +"</td>");
+            out.println("<td>"+dto.getX_SWIFI_WRDOFC() +"</td>");
+            out.println("<td><a href=\"wifi_info.jsp?mgrNo="+dto.getX_SWIFI_MGR_NO()+"&distance="+dto.getDistance()+"\">" +dto.getX_SWIFI_MAIN_NM() +"</a></td>");
+            out.println("<td>"+dto.getX_SWIFI_ADRES1() +"</td>");
+            out.println("<td>"+dto.getX_SWIFI_ADRES2() +"</td>");
+            out.println("<td>"+dto.getX_SWIFI_INSTL_FLOOR()+"</td>");
+            out.println("<td>"+dto.getX_SWIFI_INSTL_MBY() +"</td>");
+            out.println("<td>"+dto.getX_SWIFI_INSTL_TY() +"</td>");
+            out.println("<td>"+dto.getX_SWIFI_SVC_SE() +"</td>");
+            out.println("<td>"+dto.getX_SWIFI_CMCWR() +"</td>");
+            out.println("<td>"+dto.getX_SWIFI_CNSTC_YEAR() +"</td>");
+            out.println("<td>"+dto.getX_SWIFI_INOUT_DOOR() +"</td>");
+            out.println("<td>"+dto.getX_SWIFI_REMARS3() +"</td>");
+            out.println("<td>"+dto.getLNT() +"</td>");
+            out.println("<td>"+dto.getLAT() +"</td>");
+            out.println("<td>"+dto.getWORK_DTTM() +"</td>");
+            out.println("</tr>");
+        }
+    }%>
+
 </table>
 
 </body>
