@@ -15,11 +15,14 @@
   </head>
   <body>
     <h1>와이파이 정보 구하기</h1>
+
     <%@ include file="menu.jsp"%>
 
-    <form id="searchingForm" onsubmit="return searchingWifi()" action="./load-wifi.jsp">
-      LAT: <input id="LAT"> , LNT: <input id="LNT"> <button type="button" onclick="getPosition()">내 위치 가져오기</button> <button>근처 WIPI 정보 보기</button>
+    <form id="searchingForm" onsubmit="return searchingWifi()" action="./index.jsp" method="get">
+      LAT: <input id="LAT" name="LAT"> , LNT: <input id="LNT" name="LNT"> <button type="button" onclick="getPosition()">내 위치 가져오기</button> <button>근처 WIPI 정보 보기</button>
     </form>
+
+    <%@ include file="table.jsp"%>
 
   </body>
 </html>
