@@ -14,7 +14,7 @@
   <% String BOOKMARK_ID= request.getParameter("ID");
   %>
 </body>
-
+</html>
 <script>
   <%
     if(new BookMarkDAO().deleteBookmark(BOOKMARK_ID)==1){
@@ -24,4 +24,5 @@
     }
   %>
 </script>
-</html>
+
+<script src="js/toIndex.js"></script>

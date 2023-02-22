@@ -26,3 +26,4 @@
     }%>
 
 </script>
+<script src="js/toIndex.js"></script>

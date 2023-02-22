@@ -16,6 +16,7 @@
 </head>
 <body>
 </body>
+</html>
 <script>
     <% if (result!=1){
         out.print("alert(\' 오류가 발생하였습니다.\')");
@@ -25,4 +26,5 @@
     %>
 
 </script>
-</html>
+
+<script src="js/toIndex.js"></script>

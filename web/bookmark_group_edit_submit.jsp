@@ -14,16 +14,17 @@
 
     BookMarkGroupDAO dao=new BookMarkGroupDAO();
 %>
-<%=ID%>
 <body>
 </body>
 </html>
 <script>
     <% if (dao.editBookmarkGroup(ID,BOOKMARK_GROUP_NM,BOOKMARK_GROUP_SEQ)!=1){
-        out.print("alert(\'이미 존재하는 칼럼이름입니다.(입력값을 확인해주세요)\')");
+        out.print("alert(\'이미 존재하는 칼럼이름입니다.(입력값을 확인해주세요);\')");
+
     }else{
-        out.print("alert(\'성공적으로 수정 되었습니다.\')");
+        out.print("alert(\'성공적으로 수정 되었습니다.\');");
     }
     %>
 
 </script>
+<script src="js/toIndex.js"></script>
