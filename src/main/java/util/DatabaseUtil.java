@@ -2,7 +2,6 @@ package util;
 
 
 import org.jetbrains.annotations.TestOnly;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,7 +9,7 @@ import java.sql.Statement;
 
 public class DatabaseUtil {
     private  static Connection con= null;
-    private static String dbLoc="C:\\DB\\mission1.sqlite";
+    private static String dbLoc="C://DB/mission1.sqlite";
 
     public static Connection getConnection(){
         try{
@@ -22,7 +21,9 @@ public class DatabaseUtil {
         }
         return null;
     }
+    static {
 
+    }
     @TestOnly
     public static void testQuery(Connection con){
         try {

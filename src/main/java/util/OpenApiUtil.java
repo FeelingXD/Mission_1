@@ -1,13 +1,13 @@
 package util;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.jetbrains.annotations.TestOnly;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class OpenApiUtil {
     static String ORIGIN ="http://openapi.seoul.go.kr:8088";

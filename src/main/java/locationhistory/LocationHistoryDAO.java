@@ -1,19 +1,20 @@
 package locationhistory;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.TestOnly;
 import util.DatabaseUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class LocationHistoryDAO {
     // id, x ,y , date
     private static String TABLE= "LOCHISTORY";
-    public static int record(String lat, String lnt){
+
+
+    public int recordHistory(String lat, String lnt){
         String OPTION ="(\"LAT\",\"LNT\")";
         String sql= "insert into "+TABLE +OPTION +"values( ?,? )";
         Connection con=null;
@@ -49,7 +50,7 @@ public class LocationHistoryDAO {
         return -1; //error
     }
 
-    public static ArrayList<LocationHistoryDTO> select(){
+    public ArrayList<LocationHistoryDTO> getHistory(){
 
         ArrayList list=new ArrayList<LocationHistoryDTO>();
 
@@ -101,9 +102,43 @@ public class LocationHistoryDAO {
         return list;
 
     }
+
+    public int deleteHistory(String ID){
+        String sql="delete from "+TABLE+" WHERE ID=?";
+        Connection con=null;
+        PreparedStatement pstmt=null;
+        try{
+            con=DatabaseUtil.getConnection();
+            pstmt=con.prepareStatement(sql);
+            pstmt.setString(1,ID);
+            pstmt.execute();
+            return 1;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(con!=null){
+                try {
+                    con.close();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        return -1;
+    }
     @TestOnly
     public static void testSelect(){
-        ArrayList<LocationHistoryDTO> tmp=select();
+        ArrayList<LocationHistoryDTO> tmp=new LocationHistoryDAO().getHistory();
         for (LocationHistoryDTO  dto: tmp) {
             System.out.print(" id :"+dto.getId());
             System.out.print(" lat : "+dto.getLat());
