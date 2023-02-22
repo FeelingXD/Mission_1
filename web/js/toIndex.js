@@ -1,1 +1,1 @@
-(function(){location.replace("/index.jsp")} )
+location.replace('./index.jsp')
