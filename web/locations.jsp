@@ -28,8 +28,7 @@
         out.println("<td>"+dto.getLat()+"</td>");
         out.println("<td>"+dto.getLnt()+"</td>");
         out.println("<td>"+dto.getTime_log()+"</td>");
-        out.println("<td>비고</td>");
-
+        out.println("<td><button onclick='location.href=\"./location_delete.jsp?ID="+dto.getId()+"\"'>삭제</button></td>");
         out.println("</tr>");
       }
             ;%>
