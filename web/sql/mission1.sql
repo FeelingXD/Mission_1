@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.4.3 on 목 2 23 00:31:57 2023
+-- File generated with SQLiteStudio v3.4.3 on 목 2 23 00:59:05 2023
 --
 -- Text encoding used: UTF-8
 --
@@ -16,24 +16,42 @@ CREATE TABLE IF NOT EXISTS BOOKMARKGROUP (BOOKMARK_GROUP_ID INTEGER PRIMARY KEY 
 CREATE TABLE IF NOT EXISTS LOCHISTORY (ID INTEGER PRIMARY KEY AUTOINCREMENT, LAT REAL NOT NULL, LNT REAL NOT NULL, TIME_LOG TIMESTAMP DEFAULT (datetime('now', 'localtime')) NOT NULL);
 
 -- Table: WIFI_INFO
-CREATE TABLE IF NOT EXISTS "WIFI_INFO" (
-	"ID" INTEGER PRIMARY KEY AUTOINCREMENT,
-	"X_SWIFI_MGR_NO"	TEXT NOT NULL,
-	"X_SWIFI_WRDOFC"	TEXT,
-	"X_SWIFI_MAIN_NM"	TEXT NOT NULL,
-	"X_SWIFI_ADRES1"	TEXT,
-	"X_SWIFI_ADRES2"	TEXT,
-	"X_SWIFI_INSTL_FLOOR"	TEXT,
-	"X_SWIFI_INSTL_MBY"	TEXT,
-	"X_SWIFI_INSTL_TY"	TEXT,
-	"X_SWIFI_SVC_SE"	TEXT,
-	"X_SWIFI_CMCWR"	TEXT,
-	"X_SWIFI_CNSTC_YEAR"	TEXT,
-	"X_SWIFI_INOUT_DOOR"	TEXT,
-	"X_SWIFI_REMARS3"	INTEGER,
-	"LNT"	REAL,
-	"LAT"	REAL,
-	"WORK_DTTM"	TEXT
+CREATE TABLE IF NOT EXISTS "WIFI_INFO" (
+
+                                           "ID" INTEGER PRIMARY KEY AUTOINCREMENT,
+
+                                           "X_SWIFI_MGR_NO"	TEXT NOT NULL,
+
+                                           "X_SWIFI_WRDOFC"	TEXT,
+
+                                           "X_SWIFI_MAIN_NM"	TEXT NOT NULL,
+
+                                           "X_SWIFI_ADRES1"	TEXT,
+
+                                           "X_SWIFI_ADRES2"	TEXT,
+
+                                           "X_SWIFI_INSTL_FLOOR"	TEXT,
+
+                                           "X_SWIFI_INSTL_MBY"	TEXT,
+
+                                           "X_SWIFI_INSTL_TY"	TEXT,
+
+                                           "X_SWIFI_SVC_SE"	TEXT,
+
+                                           "X_SWIFI_CMCWR"	TEXT,
+
+                                           "X_SWIFI_CNSTC_YEAR"	TEXT,
+
+                                           "X_SWIFI_INOUT_DOOR"	TEXT,
+
+                                           "X_SWIFI_REMARS3"	INTEGER,
+
+                                           "LNT"	REAL,
+
+                                           "LAT"	REAL,
+
+                                           "WORK_DTTM"	TEXT
+
 );
 
 -- Trigger: UPDATE_ED
