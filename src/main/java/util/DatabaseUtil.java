@@ -2,14 +2,19 @@ package util;
 
 
 import org.jetbrains.annotations.TestOnly;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+
+
+import java.io.IOException;
+
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+
+import java.nio.file.Paths;
+import java.sql.*;
 
 public class DatabaseUtil {
     private  static Connection con= null;
-    private static String dbLoc="C://DB/mission1.sqlite";
+    private static String dbLoc="C:/DB/mission1_copy.sqlite";
 
     public static Connection getConnection(){
         try{
@@ -21,9 +26,13 @@ public class DatabaseUtil {
         }
         return null;
     }
-    static {
 
+    public static void init(String path) throws SQLException, IOException {
+        con = getConnection();
+        String sql = new String(Files.readAllBytes(Paths.get(path)), StandardCharsets.UTF_8);
+        con.createStatement().executeUpdate(sql);
     }
+
     @TestOnly
     public static void testQuery(Connection con){
         try {
