@@ -30,10 +30,8 @@ public class WifiInfoDAO {
         try {
             con=DatabaseUtil.getConnection();
             rs = con.createStatement().executeQuery(sql);
-            while(rs.next()) {
-                String amount = rs.getString(1);
-                return Integer.parseInt(amount);
-            }
+            String amount = rs.getString(1);
+            return Integer.parseInt(amount);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }finally {
@@ -53,7 +51,6 @@ public class WifiInfoDAO {
                 }
             }
         }
-        return -1; //error
     }
     public void getDataFromApi(){
         //Todo api util 에서 1000개씩 데이터 가져와서 db에 반영하기
@@ -63,8 +60,9 @@ public class WifiInfoDAO {
         while(start<limit){
             insert(oau.getRows(start));
             start=Math.min(start+999,limit);
+            System.out.println("테이블 데이터수 :"+getTableCount());
         }
-        System.out.println("테이블 데이터수 :"+getTableCount());
+        TABLECOUNT=getTableCount();
     }
     public WifiInfoDTO getDetail(String mgrNo,String distance){
         String sql="select * from "+TABLE+
