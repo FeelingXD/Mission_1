@@ -51,7 +51,7 @@
             out.println("<td>"+dto.getDistance() +"</td>");
             out.println("<td>"+dto.getX_SWIFI_MGR_NO() +"</td>");
             out.println("<td>"+dto.getX_SWIFI_WRDOFC() +"</td>");
-            out.println("<td><a href=\"wifi_info.jsp?mgrNo="+dto.getX_SWIFI_MGR_NO()+"&distance="+dto.getDistance()+"\">" +dto.getX_SWIFI_MAIN_NM() +"</a></td>");
+            out.println("<td><a href=\"wifi_info_table.jsp?mgrNo="+dto.getX_SWIFI_MGR_NO()+"&distance="+dto.getDistance()+"\">" +dto.getX_SWIFI_MAIN_NM() +"</a></td>");
             out.println("<td>"+dto.getX_SWIFI_ADRES1() +"</td>");
             out.println("<td>"+dto.getX_SWIFI_ADRES2() +"</td>");
             out.println("<td>"+dto.getX_SWIFI_INSTL_FLOOR()+"</td>");

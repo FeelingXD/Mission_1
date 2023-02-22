@@ -24,16 +24,21 @@
 <body>
 <h1> 와이파이 정보 구하기</h1>
 <%@ include file="menu.jsp"%>
-<form action="" target="_blank">
-    <select>
+<%
+    WifiInfoDTO dto = new WifiInfoDAO().getDetail(mgrNo,distance);
+%>
+<form id='form' action="bookmark_add.jsp" target="_blank" method="get">
+    <select name="bookmark_group_nm">
         <option value="">선택하세요</option>
         <%
             BookMarkGroupDAO dao=new BookMarkGroupDAO();
             for (String str :dao.getBookMarkGroupNames() ) {
-                out.print("<option value=\""+str+"\"name=\""+str+"\">"   + str +"</option> ");
+                out.print("<option value='"+str+"'>"   + str +"</option> ");
             }
         %>
+
     </select>
+    <input type="hidden" name="mgrNo" value='<%=dto.getX_SWIFI_MGR_NO()%>'>
     <button>북마크 저장하기</button>
 </form>
 
@@ -41,7 +46,7 @@
 <table>
 <%if(mgrNo!=null && distance!=null){
 
-    WifiInfoDTO dto = new WifiInfoDAO().getDetail(mgrNo,distance);
+
 
     out.println("<tr><th>거리(Km)</th><td>"+distance +"</td>/<tr>");
     out.println("<tr><th>관리번호</th><td>"+dto.getX_SWIFI_MGR_NO() +"</td>/<tr>");
