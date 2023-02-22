@@ -1,0 +1,1 @@
+(function(){location.replace("/index.jsp")} )
