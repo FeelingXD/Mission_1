@@ -19,7 +19,7 @@
 
 <%@ include file="menu.jsp"%>
 
-  <form action="bookmark_group_add_submit.jsp" target="_blank" onsubmit="return checkValue()" id="form" method="get">
+  <form action="bookmark_group_add_submit.jsp" onsubmit="return checkValue()" id="form" method="get">
     <table>
       <tr><th>북마크 이름</th><td><input type="text" id="BOOKMARK_GROUP_NM" name="BOOKMARK_GROUP_NM"></td></tr>
       <tr><th>순서</th><td><input type="text" id="BOOKMARK_GROUP_SEQ" name="BOOKMARK_GROUP_SEQ"></td></tr>

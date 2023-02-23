@@ -27,7 +27,7 @@
 <%
     WifiInfoDTO dto = new WifiInfoDAO().getDetail(mgrNo,distance);
 %>
-<form id='form' action="bookmark_add.jsp" target="_blank" method="get">
+<form id='form' action="bookmark_add.jsp"  method="get">
     <select name="bookmark_group_nm">
         <option value="">선택하세요</option>
         <%
