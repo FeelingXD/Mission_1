@@ -23,7 +23,7 @@
     <table>
       <tr><th>북마크 이름</th><td><input type="text" id="BOOKMARK_GROUP_NM" name="BOOKMARK_GROUP_NM"></td></tr>
       <tr><th>순서</th><td><input type="text" id="BOOKMARK_GROUP_SEQ" name="BOOKMARK_GROUP_SEQ"></td></tr>
-      <tr><td colspan="2"><button type="submit">제출</button></td></tr>
+      <tr><td colspan="2"><button type="submit">추가</button></td></tr>
     </table>
   </form>
 </body>
