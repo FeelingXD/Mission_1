@@ -24,17 +24,18 @@
         <th>비고</th>
     </tr>
     <%
-        if(list!=null) {
+        if(list.size()!=0) {
             for (BookMarkDTO dto : list) {
+                out.print("<tr>");
                 out.println("<td>" + dto.getBOOKMARK_GROUP_ID() + "</td>");
                 out.println("<td>" + dto.getBOOKMARK_GROUP_NM() + "</td>");
-                out.println("<td>" + dto.getBOOKMARK_WIFI_NM() + "</td>");
+                out.println("<td><a href='./wifi_info_table.jsp?mgrNo="+dto.getX_SWIFI_MGR_NO()+"\'>" + dto.getBOOKMARK_WIFI_NM() + "</a></td>");
                 out.println("<td>" + dto.getBOOKMARK_CD() + "</td>");
                 out.println("<td><button type='button' onclick=\"location.href='bookmark_delete.jsp?ID=" + dto.getBOOKMARK_ID() + "'\">삭제</button></td>");
                 out.println("</tr>");
             }
         }else{
-
+            out.print("<tr><td class='nodata' colspan='5'>정보가 존재하지 않습니다.</td></tr>");
         }
     %>
 
