@@ -11,7 +11,6 @@ public class ContextListener implements ServletContextListener  {
 
             String relativePath = "/sql/mission1.sql";
             String realPath = sce.getServletContext().getRealPath(relativePath);
-            System.out.println("Real path: " + realPath);
             DatabaseUtil.init(realPath);
         }catch (Exception e){
             e.printStackTrace();
