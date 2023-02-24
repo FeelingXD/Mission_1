@@ -14,7 +14,7 @@ public class BookMarkDAO {
 
         ArrayList<BookMarkDTO> list = new ArrayList<>();
 
-        String sql = "SELECT BM.BOOKMARK_ID,BG.BOOKMARK_GROUP_ID,BG.BOOKMARK_GROUP_NM,WI.X_SWIFI_MAIN_NM,BM.BOOKMARK_CD \n" +
+        String sql = "SELECT BM.BOOKMARK_ID,BG.BOOKMARK_GROUP_ID,BG.BOOKMARK_GROUP_NM,WI.X_SWIFI_MGR_NO as X_SWIFI_MGR_NO,WI.X_SWIFI_MAIN_NM,BM.BOOKMARK_CD \n" +
                 "FROM BOOKMARK BM, BOOKMARKGROUP BG, WIFI_INFO WI\n" +
                 "WHERE BM.BOOKMARK_GROUP_ID==BG.BOOKMARK_GROUP_ID AND BM.WIFI_INFO_ID==WI.ID\n ";
         Connection con = null;
@@ -27,9 +27,11 @@ public class BookMarkDAO {
                 String BOOKMARK_GROUP_ID = rs.getString("BOOKMARK_GROUP_ID");
                 String BOOKMARK_GROUP_NM = rs.getString("BOOKMARK_GROUP_NM");
                 String BOOKMARK_WIFI_NM = rs.getString("X_SWIFI_MAIN_NM");
+                String X_SWIFI_MGR_NO=rs.getString("X_SWIFI_MGR_NO");
                 String BOOKMARK_CD = rs.getString("BOOKMARK_CD");
 
-                list.add(new BookMarkDTO(BOOKMARK_ID, BOOKMARK_GROUP_ID, BOOKMARK_GROUP_NM, BOOKMARK_WIFI_NM, BOOKMARK_CD));
+
+                list.add(new BookMarkDTO(BOOKMARK_ID, BOOKMARK_GROUP_ID, BOOKMARK_GROUP_NM, BOOKMARK_WIFI_NM,X_SWIFI_MGR_NO, BOOKMARK_CD));
             }
             return list;
         } catch (Exception e) {
