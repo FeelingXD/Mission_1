@@ -37,7 +37,7 @@ public class BookMarkGroupDAO {
     }
 
 
-    public int addBookmarkGroup(String BOOKMARK_GROUP_NM,String BOOKMARK_GROUP_SEQ){
+    public int addBookmarkGroup(String BOOKMARK_GROUP_NM,String BOOKMARK_GROUP_SEQ) throws SQLException {
         String sql="insert into "+TABLE+"(BOOKMARK_GROUP_NM,BOOKMARK_GROUP_SEQ) VALUES(?,?)";
         Connection con=null;
         PreparedStatement pstmt=null;
@@ -48,6 +48,7 @@ public class BookMarkGroupDAO {
             pstmt.setString(1,BOOKMARK_GROUP_NM);
             pstmt.setString(2,BOOKMARK_GROUP_SEQ);
             pstmt.execute();
+
             return 1;
         } catch (SQLException e){
             e.printStackTrace();

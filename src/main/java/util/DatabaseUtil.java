@@ -14,7 +14,7 @@ import java.sql.*;
 
 public class DatabaseUtil {
     private  static Connection con= null;
-    private static String dbLoc="C:/DB/mission1_copy.sqlite";
+    private static String dbLoc="C:/DB/mission1_test.sqlite";
 
     public static Connection getConnection(){
         try{
