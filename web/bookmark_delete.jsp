@@ -12,17 +12,20 @@
 </head>
 <body>
   <% String BOOKMARK_ID= request.getParameter("ID");
+    int result=new BookMarkDAO().deleteBookmark(BOOKMARK_ID);
+    System.out.println(result);
   %>
 </body>
 </html>
 <script>
   <%
-    if(new BookMarkDAO().deleteBookmark(BOOKMARK_ID)==1){
-      out.print("성공적으로 삭제 되었습니다.");
+
+    if(result==1){
+
+      out.print("alert('성공적으로 삭제 되었습니다.')");
     }else{
-      out.print("삭제할수 없습니다.");
+      out.print("alert('삭제할수 없습니다.')");
     }
   %>
 </script>
-
 <script src="js/toIndex.js"></script>
