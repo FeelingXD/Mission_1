@@ -1,6 +1,13 @@
 @import "reset.css";
 
 
+.nodata{
+    text-align: center;
+}
+table{
+    width: 100%;
+    text-align: center;
+}
 th, td {
     padding: 6px 15px;
 }
