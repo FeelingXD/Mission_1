@@ -44,12 +44,10 @@
 
 
 <table>
-<%if(mgrNo!=null && distance!=null){
+<%if(mgrNo!=null ){
 
-
-
-    out.println("<tr><th>거리(Km)</th><td>"+distance +"</td>/<tr>");
-    out.println("<tr><th>관리번호</th><td>"+dto.getX_SWIFI_MGR_NO() +"</td>/<tr>");
+    out.println("<tr><th>거리(Km)</th> <td>"+ (distance!=null ? distance : 0) +"</td>/<tr>");
+    out.println("<tr><th>관리번호</th> <td>"+dto.getX_SWIFI_MGR_NO() +"</td>/<tr>");
     out.println("<tr><th>자치구</th><td>"+dto.getX_SWIFI_WRDOFC()+"</td>/<tr>");
     out.println("<tr><th>도로명주소</th><td>"+dto.getX_SWIFI_ADRES1()+"</td>/<tr>");
     out.println("<tr><th>상세주소</th><td>"+dto.getX_SWIFI_ADRES2() +"</td>/<tr>");
