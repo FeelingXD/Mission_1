@@ -19,7 +19,7 @@
 </body>
 </html>
 <script>
-    <%if (1==dao.insertBookmark(mgrNo,BOOKMARK_GROUP_NM)){
+    <%if ( (BOOKMARK_GROUP_NM!="")&&(1==dao.insertBookmark(mgrNo,BOOKMARK_GROUP_NM))){
         out.print("alert('성공적으로 추가되었습니다.')");
     }else{
         out.print("alert('오류가 발생하였습니다.')");

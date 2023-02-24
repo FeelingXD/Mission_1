@@ -67,7 +67,10 @@
             out.println("<td>"+dto.getWORK_DTTM() +"</td>");
             out.println("</tr>");
         }
-    }%>
+    }else{
+            out.print("<tr><td class='nodata' colspan='17'>위치정보를 입력한 후에 조회해 주세요</td></tr>");
+        }
+    %>
 
 </table>
 
